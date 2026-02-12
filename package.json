@@ -1,0 +1,26 @@
+{
+  "name": "@nervosnetwork/fiber-js",
+  "version": "0.7.0-dist.1",
+  "type": "module",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "default": "./index.js"
+    }
+  },
+  "files": [
+    "index.js",
+    "index.js.map",
+    "index.d.ts",
+    "index.d.ts.map",
+    "db.worker.d.ts",
+    "db.worker.d.ts.map",
+    "fiber.worker.d.ts",
+    "fiber.worker.d.ts.map",
+    "types"
+  ]
+}
+
