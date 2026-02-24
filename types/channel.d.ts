@@ -120,7 +120,7 @@ interface OpenChannelWithExternalFundingParams {
     max_tlc_number_in_flight?: HexString;
 }
 interface OpenChannelWithExternalFundingResult {
-    temporary_channel_id: HexString;
+    channel_id: HexString;
     unsigned_funding_tx: CkbJsonRpcTransaction;
 }
 interface SubmitSignedFundingTxParams {
