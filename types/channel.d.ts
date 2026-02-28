@@ -4,6 +4,13 @@ interface Script {
     hash_type: "data" | "type" | "data1" | "data2";
     args: string;
 }
+interface CellDep {
+    dep_type: "code" | "dep_group";
+    out_point: {
+        tx_hash: HexString;
+        index: HexString;
+    };
+}
 interface OpenChannelParams {
     peer_id: string;
     funding_amount: HexString;
@@ -80,13 +87,7 @@ interface UpdateChannelParams {
 /** CKB JSON-RPC Transaction format (from fiber open_channel_with_external_funding) */
 interface CkbJsonRpcTransaction {
     version: HexString;
-    cell_deps: Array<{
-        dep_type: string;
-        out_point: {
-            tx_hash: HexString;
-            index: HexString;
-        };
-    }>;
+    cell_deps: CellDep[];
     header_deps: HexString[];
     inputs: Array<{
         previous_output: {
@@ -110,6 +111,7 @@ interface OpenChannelWithExternalFundingParams {
     funding_udt_type_script?: Script;
     shutdown_script: Script;
     funding_lock_script: Script;
+    funding_source_extra_cell_deps?: CellDep[];
     commitment_delay_epoch?: HexString;
     commitment_fee_rate?: HexString;
     funding_fee_rate?: HexString;
@@ -134,5 +136,5 @@ interface SubmitSignedFundingTxResult {
 interface ListChannelsResult {
     channels: Channel[];
 }
-export type { OpenChannelParams, Script, OpenChannelResult, AbandonChannelParams, AcceptChannelParams, AcceptChannelResult, ListChannelsParams, Channel, ChannelState, ShutdownChannelParams, UpdateChannelParams, ListChannelsResult, CkbJsonRpcTransaction, OpenChannelWithExternalFundingParams, OpenChannelWithExternalFundingResult, SubmitSignedFundingTxParams, SubmitSignedFundingTxResult };
+export type { OpenChannelParams, Script, OpenChannelResult, AbandonChannelParams, AcceptChannelParams, AcceptChannelResult, ListChannelsParams, Channel, ChannelState, ShutdownChannelParams, UpdateChannelParams, ListChannelsResult, CellDep, CkbJsonRpcTransaction, OpenChannelWithExternalFundingParams, OpenChannelWithExternalFundingResult, SubmitSignedFundingTxParams, SubmitSignedFundingTxResult };
 //# sourceMappingURL=../../src/dist/types/channel.d.ts.map

@@ -37,6 +37,10 @@ declare class Fiber {
      */
     stop(): Promise<void>;
     openChannel(params: OpenChannelParams): Promise<OpenChannelResult>;
+    /**
+     * Matches Fiber RPC `open_channel_with_external_funding`.
+     * Supports optional `funding_source_extra_cell_deps` for custom funding-source locks.
+     */
     openChannelWithExternalFunding(params: OpenChannelWithExternalFundingParams): Promise<OpenChannelWithExternalFundingResult>;
     submitSignedFundingTx(params: SubmitSignedFundingTxParams): Promise<SubmitSignedFundingTxResult>;
     acceptChannel(params: AcceptChannelParams): Promise<AcceptChannelResult>;
