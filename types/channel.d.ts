@@ -110,6 +110,14 @@ interface OpenChannelWithExternalFundingParams {
     funding_udt_type_script?: Script;
     shutdown_script: Script;
     funding_lock_script: Script;
+    /** Optional extra cell deps required by funding_lock_script for custom wallet locks. */
+    funding_lock_script_cell_deps?: Array<{
+        dep_type: string;
+        out_point: {
+            tx_hash: HexString;
+            index: HexString;
+        };
+    }>;
     commitment_delay_epoch?: HexString;
     commitment_fee_rate?: HexString;
     funding_fee_rate?: HexString;

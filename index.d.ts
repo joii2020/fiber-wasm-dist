@@ -40,7 +40,9 @@ declare class Fiber {
     /**
      * Open a channel with external funding and return the final negotiated unsigned
      * funding transaction. The caller should sign this tx once, without changing its
-     * structure, then submit it with submitSignedFundingTx.
+     * structure, then submit it with submitSignedFundingTx. When `funding_lock_script`
+     * uses a custom wallet lock, pass `funding_lock_script_cell_deps` so the node can
+     * build the initial unsigned transaction.
      */
     openChannelWithExternalFunding(params: OpenChannelWithExternalFundingParams): Promise<OpenChannelWithExternalFundingResult>;
     /**
