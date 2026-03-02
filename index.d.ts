@@ -37,7 +37,16 @@ declare class Fiber {
      */
     stop(): Promise<void>;
     openChannel(params: OpenChannelParams): Promise<OpenChannelResult>;
+    /**
+     * Open a channel with external funding and return the final negotiated unsigned
+     * funding transaction. The caller should sign this tx once, without changing its
+     * structure, then submit it with submitSignedFundingTx.
+     */
     openChannelWithExternalFunding(params: OpenChannelWithExternalFundingParams): Promise<OpenChannelWithExternalFundingResult>;
+    /**
+     * Submit the externally signed funding transaction. The transaction must match the
+     * unsigned_funding_tx returned by openChannelWithExternalFunding, except witnesses.
+     */
     submitSignedFundingTx(params: SubmitSignedFundingTxParams): Promise<SubmitSignedFundingTxResult>;
     acceptChannel(params: AcceptChannelParams): Promise<AcceptChannelResult>;
     abandonChannel(params: AbandonChannelParams): Promise<void>;

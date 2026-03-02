@@ -77,7 +77,7 @@ interface UpdateChannelParams {
     tlc_minimum_value?: HexString;
     tlc_fee_proportional_millionths?: HexString;
 }
-/** CKB JSON-RPC Transaction format (from fiber open_channel_with_external_funding) */
+/** CKB JSON-RPC Transaction format (used by external funding RPCs). */
 interface CkbJsonRpcTransaction {
     version: HexString;
     cell_deps: Array<{
@@ -121,10 +121,12 @@ interface OpenChannelWithExternalFundingParams {
 }
 interface OpenChannelWithExternalFundingResult {
     channel_id: HexString;
+    /** Final unsigned funding tx after peer tx collaboration has frozen its structure. */
     unsigned_funding_tx: CkbJsonRpcTransaction;
 }
 interface SubmitSignedFundingTxParams {
     channel_id: HexString;
+    /** Same tx structure as unsigned_funding_tx, with only witnesses/signatures added. */
     signed_funding_tx: CkbJsonRpcTransaction;
 }
 interface SubmitSignedFundingTxResult {
