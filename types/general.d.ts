@@ -25,8 +25,6 @@ type FiberInvokeResponse = {
     error: string;
 };
 type HexString = `0x${string}`;
-/** Compressed secp256k1 public key hex string without `0x` prefix (66 chars). */
-type Pubkey = string;
 type HashAlgorithm = "ckb_hash" | "sha256";
-export type { DbWorkerInitializationOptions, FiberWorkerInitializationOptions, FiberInvokeRequest, FiberInvokeResponse, HexString, Pubkey, HashAlgorithm };
+export type { DbWorkerInitializationOptions, FiberWorkerInitializationOptions, FiberInvokeRequest, FiberInvokeResponse, HexString, HashAlgorithm };
 //# sourceMappingURL=../../src/dist/types/general.d.ts.map
