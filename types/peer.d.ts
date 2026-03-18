@@ -1,13 +1,13 @@
-import { Pubkey } from "./general";
 interface ConnectPeerParams {
     address: string;
     save?: boolean;
 }
 interface DisconnectPeerParams {
-    pubkey: Pubkey;
+    peer_id: string;
 }
 interface PeerInfo {
-    pubkey: Pubkey;
+    pubkey: string;
+    peer_id: string;
     address: string;
 }
 interface ListPeerResult {
