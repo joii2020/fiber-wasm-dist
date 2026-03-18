@@ -1,11 +1,11 @@
-import { HexString } from "./general";
+import { HexString, Pubkey } from "./general";
 interface Script {
     code_hash: HexString;
     hash_type: "data" | "type" | "data1" | "data2";
     args: string;
 }
 interface OpenChannelParams {
-    peer_id: string;
+    pubkey: Pubkey;
     funding_amount: HexString;
     public?: boolean;
     funding_udt_type_script?: Script;
@@ -39,7 +39,7 @@ interface AcceptChannelResult {
     channel_id: HexString;
 }
 interface ListChannelsParams {
-    peer_id?: string;
+    pubkey?: Pubkey;
     include_closed?: boolean;
 }
 interface ChannelState {
@@ -50,7 +50,7 @@ interface Channel {
     channel_id: HexString;
     is_public: boolean;
     channel_outpoint: HexString;
-    peer_id: HexString;
+    pubkey: Pubkey;
     funding_udt_type_script?: Script;
     state: ChannelState;
     local_balance: HexString;
@@ -77,7 +77,7 @@ interface UpdateChannelParams {
     tlc_minimum_value?: HexString;
     tlc_fee_proportional_millionths?: HexString;
 }
-/** CKB JSON-RPC Transaction format (from fiber open_channel_with_external_funding) */
+/** CKB JSON-RPC Transaction format (used by external funding RPCs). */
 interface CkbJsonRpcTransaction {
     version: HexString;
     cell_deps: Array<{
@@ -104,12 +104,20 @@ interface CkbJsonRpcTransaction {
     witnesses: HexString[];
 }
 interface OpenChannelWithExternalFundingParams {
-    peer_id: string;
+    pubkey: Pubkey;
     funding_amount: HexString;
     public?: boolean;
     funding_udt_type_script?: Script;
     shutdown_script: Script;
     funding_lock_script: Script;
+    /** Optional extra cell deps required by funding_lock_script for custom wallet locks. */
+    funding_lock_script_cell_deps?: Array<{
+        dep_type: string;
+        out_point: {
+            tx_hash: HexString;
+            index: HexString;
+        };
+    }>;
     commitment_delay_epoch?: HexString;
     commitment_fee_rate?: HexString;
     funding_fee_rate?: HexString;
@@ -120,11 +128,13 @@ interface OpenChannelWithExternalFundingParams {
     max_tlc_number_in_flight?: HexString;
 }
 interface OpenChannelWithExternalFundingResult {
-    temporary_channel_id: HexString;
+    channel_id: HexString;
+    /** Final unsigned funding tx after peer tx collaboration has frozen its structure. */
     unsigned_funding_tx: CkbJsonRpcTransaction;
 }
 interface SubmitSignedFundingTxParams {
     channel_id: HexString;
+    /** Same tx structure as unsigned_funding_tx, with only witnesses/signatures added. */
     signed_funding_tx: CkbJsonRpcTransaction;
 }
 interface SubmitSignedFundingTxResult {
